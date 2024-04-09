@@ -1,8 +1,7 @@
-const accountSid = 'ACd2501210e190bcaf2573743341408a40';
-const authToken = 'bae7a8a6d7bacf3b3acfc0efe01153a3';
-const twilioNumber = '+18064294191';
 
-const twilio = require('twilio')(accountSid, authToken);
+require('dotenv').config()
+
+const twilio = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
 const sendOTP=(phoneNumber, otp)=> {
     console.log(phoneNumber,otp)
@@ -11,7 +10,7 @@ const sendOTP=(phoneNumber, otp)=> {
     twilio.messages
         .create({
             body: message,
-            from: twilioNumber,
+            from: process.env.TWILIO_NUMBER,
             to: phoneNumber
         })
         .then(message => console.log(`OTP sent: ${message.sid}`))
